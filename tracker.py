@@ -63,3 +63,32 @@ def top_scorer(students):
 def needs_practice(students, limit=40):
     """Return students whose average is below the limit (default 40)."""
     return [s for s in students if average(s) < limit]
+
+
+
+def print_table(students):
+    """Print all students in a neat table using a loop."""
+    print("\nResults")
+    print(f"{'Roll':<6}{'Name':<16}{'Apt':>5}{'Verb':>6}{'Code':>6}{'Avg':>8}  Grade")
+    print("-" * 60)
+    for s in students:
+        avg = average(s)
+        print(f"{s['roll_no']:<6}{s['name']:<16}{s['aptitude']:>5}{s['verbal']:>6}"
+              f"{s['coding']:>6}{avg:>8.2f}  {grade(avg)}")
+
+
+def main():
+    print("Placement Readiness Tracker")
+    add_student(students)
+    print_table(students)
+
+    best = top_scorer(students)
+    print(f"\nTop scorer: {best['name']} ({average(best):.2f})")
+
+    weak = needs_practice(students)
+    print("Needs extra practice (average below 40):",
+          ", ".join(s["name"] for s in weak) if weak else "None")
+
+
+if __name__ == "__main__":
+    main()
